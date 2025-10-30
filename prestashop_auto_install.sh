@@ -42,7 +42,7 @@ sudo chown -R www-data:www-data /var/www/html
 sudo chmod -R 755 /var/www/html
 
 echo "=== Membuat Konfigurasi Virtual Host ==="
-sudo bash -c "cat > /etc/apache2/sites-available/prestashop.conf <<EOF
+sudo tee /etc/apache2/sites-available/prestashop.conf > /dev/null <<EOF
 <VirtualHost *:80>
     ServerAdmin admin@prestashop.local
     DocumentRoot /var/www/html
@@ -51,10 +51,10 @@ sudo bash -c "cat > /etc/apache2/sites-available/prestashop.conf <<EOF
         AllowOverride All
         Require all granted
     </Directory>
-    ErrorLog \\\${APACHE_LOG_DIR}/prestashop_error.log
-    CustomLog \\\${APACHE_LOG_DIR}/prestashop_access.log combined
+    ErrorLog \${APACHE_LOG_DIR}/prestashop_error.log
+    CustomLog \${APACHE_LOG_DIR}/prestashop_access.log combined
 </VirtualHost>
-EOF"
+EOF
 
 echo "=== Mengaktifkan Konfigurasi dan Modul Rewrite ==="
 sudo a2dissite 000-default.conf
